@@ -10,14 +10,14 @@ public class TestHarness {
             @Override
             public void countDown() {
                 super.countDown();
-                Log.info("countDown from startGate " + getCount());
+                Log.line("countDown from startGate " + getCount());
             }
         };
         CountDownLatch endGate = new CountDownLatch(nThreads) {
             @Override
             public void countDown() {
                 super.countDown();
-                Log.info("countDown from endGate " + getCount());
+                Log.line("countDown from endGate " + getCount());
             }
         };
 
@@ -31,7 +31,7 @@ public class TestHarness {
                         endGate.countDown();
                     }
                 } catch (InterruptedException e) {
-                    Log.info("InterruptedException");
+                    Log.line("InterruptedException");
                 }
             });
             thread.start();

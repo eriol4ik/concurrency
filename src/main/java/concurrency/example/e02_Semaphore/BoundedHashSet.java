@@ -16,15 +16,15 @@ public class BoundedHashSet<T> {
         semaphore = new Semaphore(bound) {
             @Override
             public void acquire() throws InterruptedException {
-                Log.info("Acquiring...");
+                Log.line("Acquiring... (available = " + this.availablePermits() + ")");
                 super.acquire();
-                Log.info("Done!");
+                Log.line("-> Done!");
             }
         };
     }
 
     public boolean add(T o) {
-        Log.info("Adding " + o);
+        Log.line("Adding " + o);
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
@@ -37,22 +37,21 @@ public class BoundedHashSet<T> {
         } finally {
             if (!wasAdded) {
                 semaphore.release();
-                Log.info("Not added " + o);
+                Log.line("-> Not added " + o + " ");
             } else {
-                Log.info("Added " + o);
+                Log.line("-> Added " + o + " ");
             }
-            Log.info(set.size());
+            Log.line("-> size = " + set.size());
         }
     }
 
     public boolean remove(T o) {
-        Log.info("Try removing " + o);
+        Log.line("Try removing " + o);
         boolean wasRemoved = set.remove(o);
         if (wasRemoved) {
             semaphore.release();
-            Log.info("Removed " + o);
+            Log.line("-> Removed " + o + ", size = " + set.size());
         }
-        Log.info(set.size());
         return wasRemoved;
     }
 }

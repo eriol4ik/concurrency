@@ -6,10 +6,10 @@ public class Launcher01 {
     public static void main(String[] args) {
         TestHarness testHarness = new TestHarness();
         try {
-            long time = testHarness.timeTasks(5, () -> Log.info("Hello from " + Thread.currentThread().getName()));
-            Log.info(time);
+            long time = testHarness.timeTasks(5, () -> Log.line("Hello from " + Thread.currentThread().getName()));
+            Log.line(time);
         } catch (InterruptedException e) {
-            Log.info("InterruptedException from main");
+            Log.line("InterruptedException from main");
         }
     }
 }
