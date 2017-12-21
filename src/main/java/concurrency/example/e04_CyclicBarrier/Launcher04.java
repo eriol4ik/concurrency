@@ -31,7 +31,8 @@ public class Launcher04 {
             list.add(i++);
             Log.line("Generated " + i);
             try {
-                cyclicBarrier.await();
+                int await = cyclicBarrier.await();
+                Log.line("await returned " + await + " from " + Thread.currentThread().getName());
             } catch (InterruptedException | BrokenBarrierException e) {
                 Log.error("InterruptedException | BrokenBarrierException");
             }
